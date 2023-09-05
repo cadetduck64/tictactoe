@@ -5,33 +5,146 @@
 //[make a key based on cell ID for a winner]
 //[probably an if statement]
 
-let gameBoardMap = []
+const player1Name = document.querySelector('#player1')
+const player2Name = document.querySelector('#player2')
+const getPlayerNames = document.querySelector('#names')
 
-player = {
+const resetButton = document.querySelector('#reset')
+resetButton.addEventListener('click', () => {console.log('asdf')})
 
+
+player1 = {playerName: player1Name.value,
+playerMark: 'X'
 }
 
-let game = {
-    gameBoardMap
+player2 = {playerName: 'SECOND PLAYER',
+playerMark: 'O'
 }
 
-let gameBoardGen = () => {
+getPlayerNames.addEventListener('click', () => {player1Name})
+
+referee = {
+    playerBank1: [],
+    playerBank2: [''],
+    win123 : ['plot1','plot2','plot3'],
+    win456 : ['plot4','plot5','plot6'],
+    win789 : ['plot7','plot8','plot9'],
+    //collumns
+    win147 : ['plot1','plot4','plot7'],
+    win258 : ['plot2','plot5','plot8'],
+    win369 : ['plot3','plot6','plot9'],
+    //rows
+    win753 : ['plot7','plot5','plot3'],
+    win159 : ['plot1','plot5','plot9']
+}
+
+let gameBoardGen = (player1) => {
 //generates gameboard
 let htmlDisplay = document.querySelector('#htmlDisplay')
-for (let i = 0; i <= 8; i++) {
-let cell = document.createElement('div')
-cell.setAttribute('id', `plot${i}`)
-cell.classList.add('cell')
-cell.textContent = `${i}`
-htmlDisplay.appendChild(cell)
-gameBoardMap.push(cell)
-cell.addEventListener('click', (e) => {e.target.textContent = 'X',
-console.log(e.target.id)})}
+    for (let i = 1; i <= 9; i++) {
+    let cell = document.createElement('div')
+    cell.setAttribute('id', `plot${i}`)
+    cell.classList.add('cell')
+    cell.textContent = `${i}`
+    htmlDisplay.appendChild(cell)
+
+
+    cell.addEventListener('click', (e) => {
+
+
+        if(referee.playerBank1.includes(e.target.id))
+        {return console.log('ALREADY PICKED')} else if 
+        (referee.playerBank2.includes(e.target.id))
+        {return console.log('ALREADY PICKED')}
+
+        console.log(referee.playerBank1.length)
+        console.log(referee.playerBank2.length)
+
+        if (referee.playerBank1.length < referee.playerBank2.length)
+        {e.target.textContent = player1.playerMark;
+            referee.playerBank1.push(e.target.id)}
+        else if
+        (referee.playerBank2.length <= referee.playerBank1.length)
+        {e.target.textContent = player2.playerMark
+            referee.playerBank2.push(e.target.id)}
+    
+        // referee.playerBank1.push(e.target.id)
+        console.log(referee.playerBank1)
+        console.log(referee.playerBank2)
+
+        // let checkWin123 = referee.win123.every(i => referee.playerBank2.includes(i), console.log(`${player2.playerName} wins`)||
+        // referee.win123.every(i => referee.playerBank1.includes(i)))
+        // console.log(checkWin123)
+        
+        if (referee.win123.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win123.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win456.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win456.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win789.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win789.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win147.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win147.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win258.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win258.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win369.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win369.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win753.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win753.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+        if (referee.win159.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
+        else if (referee.win159.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
+
+
+        
+
+        // //rows
+        // const win123 = ['plot1','plot2','plot3']
+        // const win456 = ['plot4','plot5','plot6']
+        // const win789 = ['plot7','plot8','plot9']
+        // //columns
+        // const win147 = ['plot1','plot4','plot7']
+        // const win258 = ['plot2','plot5','plot8']
+        // const win369 = ['plot3','plot6','plot9']
+        // //rows
+        // const win753 = ['plot7','plot5','plot3']
+        // const win159 = ['plot1','plot5','plot9']
+        
+        // //rows
+        // let checkWin123 = win123.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin123)
+        // let checkWin456 = win456.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin456)
+        // let checkWin789 = win789.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin789)
+        // //columns
+        // let checkWin147 = win147.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin147)
+        // let checkWin258 = win258.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin258)
+        // let checkWin369 = win369.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin369)
+        // //diagonal
+        // let checkWin753 = win753.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin753)
+        // let checkWin159 = win159.every(i => referee.playerBank1.includes(i))
+        // console.log(checkWin159)
+        
+
+
+    })
+
+    }
 }
 
-gameBoardGen()
-console.log(game)
+gameBoardGen(player1)
 
-
-
-let Referee = {}
+//15
+//6
+//25
+//12
