@@ -8,17 +8,14 @@
 const player1Name = document.querySelector('#player1')
 const player2Name = document.querySelector('#player2')
 const getPlayerNames = document.querySelector('#names')
-
 const resetButton = document.querySelector('#reset')
-resetButton.addEventListener('click', () => {console.log('asdf')})
-
 
 player1 = {playerName: player1Name.value,
-playerMark: 'X'
+    playerMark: 'X'
 }
 
-player2 = {playerName: 'SECOND PLAYER',
-playerMark: 'O'
+player2 = {playerName: player2Name.value,
+    playerMark: 'O'
 }
 
 getPlayerNames.addEventListener('click', () => {player1Name})
@@ -38,11 +35,11 @@ referee = {
     win159 : ['plot1','plot5','plot9']
 }
 
-let gameBoardGen = (player1) => {
-//generates gameboard
-let htmlDisplay = document.querySelector('#htmlDisplay')
+let gameBoardGen = () => {
+    //generates gameboard
+    const htmlDisplay = document.querySelector('#htmlDisplay')
     for (let i = 1; i <= 9; i++) {
-    let cell = document.createElement('div')
+    const cell = document.createElement('div')
     cell.setAttribute('id', `plot${i}`)
     cell.classList.add('cell')
     cell.textContent = `${i}`
@@ -50,15 +47,10 @@ let htmlDisplay = document.querySelector('#htmlDisplay')
 
 
     cell.addEventListener('click', (e) => {
-
-
         if(referee.playerBank1.includes(e.target.id))
         {return console.log('ALREADY PICKED')} else if 
         (referee.playerBank2.includes(e.target.id))
         {return console.log('ALREADY PICKED')}
-
-        console.log(referee.playerBank1.length)
-        console.log(referee.playerBank2.length)
 
         if (referee.playerBank1.length < referee.playerBank2.length)
         {e.target.textContent = player1.playerMark;
@@ -69,8 +61,8 @@ let htmlDisplay = document.querySelector('#htmlDisplay')
             referee.playerBank2.push(e.target.id)}
     
         // referee.playerBank1.push(e.target.id)
-        console.log(referee.playerBank1)
-        console.log(referee.playerBank2)
+        console.log(player1.playerName + ' ' + 'picked' + ' ' + referee.playerBank1)
+        console.log(player2.playerName + ' ' + 'picked' + ' ' + referee.playerBank2)
 
         // let checkWin123 = referee.win123.every(i => referee.playerBank2.includes(i), console.log(`${player2.playerName} wins`)||
         // referee.win123.every(i => referee.playerBank1.includes(i)))
@@ -99,9 +91,6 @@ let htmlDisplay = document.querySelector('#htmlDisplay')
 
         if (referee.win159.every(i => referee.playerBank2.includes(i))) {console.log(`${player2.playerName} wins`)}
         else if (referee.win159.every(i => referee.playerBank1.includes(i))) {console.log(`${player1.playerName} wins`)}
-
-
-        
 
         // //rows
         // const win123 = ['plot1','plot2','plot3']
@@ -134,16 +123,22 @@ let htmlDisplay = document.querySelector('#htmlDisplay')
         // console.log(checkWin753)
         // let checkWin159 = win159.every(i => referee.playerBank1.includes(i))
         // console.log(checkWin159)
-        
-
-
     })
-
     }
 }
 
-gameBoardGen(player1)
+getPlayerNames.addEventListener('click', () => {player1.playerName = player1Name.value, player2.playerName = player2Name.value, gameBoardGen()})
 
+const reset = () => {
+referee.playerBank1 = []
+referee.playerBank2 = ['']
+while (htmlDisplay.hasChildNodes) {
+htmlDisplay.removeChild(htmlDisplay.firstChild)}
+}
+
+resetButton.addEventListener('click', () => {reset()})
+
+//tried to find an algorithm for game win by adding cell values, didnt work
 //15
 //6
 //25
